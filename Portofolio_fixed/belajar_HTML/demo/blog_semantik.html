@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Semantik | Proyek Muhammad Reishan</title>
+    
+    <link rel="stylesheet" href="../style.css"> 
+    <link rel="stylesheet" href="blog_style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <div class="header-content">
+            <h1 class="site-title">Blog Reishan: Coding & Insight</h1>
+            <nav aria-label="Navigasi Utama Blog">
+                <ul>
+                    <li><a href="#terbaru">Postingan</a></li>
+                    <li><a href="#kategori">Kategori</a></li>
+                    <li><a href="./portofilo.html" class="portfolio-link">← Portofolio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        
+        <h2 class="main-heading" id="terbaru">Postingan Terbaru</h2>
+
+        <section class="post-list-area">
+
+            <article class="post-card" aria-labelledby="post1-judul">
+                <h2 id="post1-judul" class="post-title">Mengapa HTML Semantik Adalah Fondasi Web yang Baik</h2>
+                
+                <p class="post-meta">Dipublikasikan: <time datetime="2025-10-20">20 Oktober 2025</time> | Kategori: HTML & A11Y</p>
+                
+                <div class="post-content">
+                    <h3>Definisi Singkat</h3>
+                    <p>HTML semantik adalah penggunaan markup HTML untuk memperkuat makna, bukan hanya presentasi visual. Ini membantu browser, mesin pencari, dan teknologi bantu (seperti screen reader) memahami konten.</p>
+                    <p>Elemen seperti <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, dan <code>&lt;footer&gt;</code> memberikan struktur logis dan prediktif pada halaman.</p>
+                </div>
+                
+                <a href="#" class="read-more-btn">Baca Lebih Lanjut →</a>
+            </article>
+
+            <article class="post-card" aria-labelledby="post2-judul">
+                <h2 id="post2-judul" class="post-title">Meningkatkan Aksesibilitas (A11Y) dengan Atribut Dasar</h2>
+                <p class="post-meta">Dipublikasikan: <time datetime="2025-11-01">01 November 2025</time> | Kategori: Aksesibilitas</p>
+                
+                <div class="post-content">
+                    <p>Aksesibilitas dasar dapat dicapai dengan beberapa hal sederhana, seperti menggunakan atribut <code>alt</code> pada gambar, label yang benar pada formulir, dan memastikan kontras warna yang memadai.</p>
+                    
+                    <figure class="post-figure">
+                        <img src="https://via.placeholder.com/600x300/4A90A2/ffffff?text=Ilustrasi+Aksesibilitas" alt="Ilustrasi logo aksesibilitas berwarna Soft Teal dengan tiga lingkaran">
+                        <figcaption>Contoh Gambar dengan Teks Alternatif yang Jelas.</figcaption>
+                    </figure>
+                </div>
+                
+                <a href="#" class="read-more-btn">Lihat Checklist A11Y →</a>
+            </article>
+            
+        </section>
+
+
+        <aside class="sidebar" id="kategori" aria-labelledby="aside-judul">
+            <h2 id="aside-judul">Kategori Populer</h2>
+            <nav aria-label="Kategori Blog">
+                <ul>
+                    <li>Web Performance Optimization (WPO)</li>
+                    <li>CSS Grid & Flexbox</li>
+                    <li>Dasar JavaScript</li>
+                </ul>
+            </nav>
+        </aside>
+    </main>
+
+    <footer>
+        <small class="footer-text">&copy; 2025 Muhammad Reishan Asvialdy. Dibuat dengan semangat coding.</small>
+    </footer>
+
+</body>
+</html>
