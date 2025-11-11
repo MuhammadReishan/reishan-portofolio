@@ -1,0 +1,459 @@
+/* Import Google Font - Poppins untuk tampilan yang profesional */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* --- Variabel Warna & Reset Global --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #007bff;      /* Biru Utama */
+    --secondary-color: #1a237e;    /* Navy Gelap untuk Judul */
+    --text-color: #333;
+    --light-bg: #f7f9fc;           /* Latar Belakang Bagian Fitur */
+    --dark-bg: #1c1c1c;            /* Latar Belakang Footer */
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: #ffffff;
+}
+
+h1, h2, h3 {
+    color: var(--secondary-color);
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* --- Header & Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Bayangan halus */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.navbar nav a {
+    margin-left: 25px;
+    font-weight: 600;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.cta-link {
+    background-color: var(--primary-color);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.cta-link:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 85vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 5%;
+    /* Gradien latar belakang yang elegan */
+    background: linear-gradient(135deg, #f0f8ff 0%, #e8f0ff 100%); 
+}
+
+.hero-content {
+    max-width: 800px;
+    animation: fadeIn 1.5s ease-out; /* Animasi masuk */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.hero-content p {
+    font-size: 1.15rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* CTA Button - Primary Style */
+.cta-button {
+    cursor: pointer;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+    transition: all 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Efek lift-up saat hover */
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6);
+}
+
+/* --- Feature Section --- */
+.fitur-section {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: var(--light-bg);
+}
+
+.fitur-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.cards-container {
+    display: grid;
+    /* Grid 3 kolom, responsif */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 5px solid var(--primary-color); /* Garis atas pemisah */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.card p {
+    color: #666;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--dark-bg);
+    color: #f0f0f0;
+    padding: 60px 5% 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-brand, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-brand h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.footer-links h4, .footer-contact h4 {
+    color: var(--primary-color);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links a, .footer-contact a, .footer-contact p {
+    color: #ccc;
+}
+
+.footer-links a:hover, .footer-contact a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+
+
+@media (max-width: 768px) {
+    .navbar nav {
+        display: none; /* Sembunyikan navigasi di mobile */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+/* --- Portofolio Section --- */
+.portofolio-section {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: #ffffff; /* Latar Putih */
+}
+
+.portofolio-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+}
+
+.portofolio-card {
+    border-top: 5px solid #ff9800; /* Warna aksen oranye */
+}
+
+.portofolio-card h3 {
+    color: var(--secondary-color);
+}
+
+.portofolio-link {
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: 600;
+    color: var(--primary-color);
+    transition: margin-left 0.2s;
+}
+
+.portofolio-link:hover {
+    margin-left: 5px;
+}
+/* --- Tech Stack Section --- */
+.stack-section {
+    padding: 60px 5%;
+    text-align: center;
+    background-color: var(--light-bg); 
+}
+
+.stack-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.tech-icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.tech-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-label {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #444;
+}
+/* --- Proses Section --- */
+.proses-section {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.proses-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.proses-langkah {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step {
+    flex-basis: 30%;
+    padding: 20px;
+    text-align: center;
+}
+
+.step-icon {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px;
+    line-height: 50px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.step h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.step p {
+    color: #666;
+}
+/* --- Testimoni Section --- */
+.testimoni-section {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: #f0f8ff; /* Warna latar sangat terang untuk kontras */
+}
+
+.testimoni-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.testimoni-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimoni-card {
+    flex-basis: 45%;
+    min-width: 300px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-light);
+    text-align: left;
+    border-left: 5px solid #ffc107; /* Aksen kuning untuk testimonial */
+}
+
+.quote {
+    font-style: italic;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.client-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: var(--secondary-color);
+}
+
+.client-info span {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Responsif untuk Testimoni */
+@media (max-width: 900px) {
+    .testimoni-card {
+        flex-basis: 80%;
+    }
+}
+/* --- Final CTA Section --- */
+.final-cta {
+    padding: 80px 5%;
+    text-align: center;
+    background-color: var(--primary-color); /* Latar belakang menggunakan warna primer */
+    color: white;
+}
+
+.final-cta h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white; /* Judul putih */
+    margin-bottom: 15px;
+}
+
+.final-cta p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+}
+
+.large-button {
+    /* Menggunakan kembali cta-button, hanya menyesuaikan ukuran */
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    background-color: #ffc107; /* Warna kontras kuning/oranye */
+    box-shadow: 0 6px 15px rgba(255, 193, 7, 0.5);
+    color: var(--secondary-color); /* Teks gelap pada tombol terang */
+    border: none;
+}
+
+.large-button:hover {
+    background-color: #e0a800;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.7);
+}
