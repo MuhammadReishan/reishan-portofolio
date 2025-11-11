@@ -1,3 +1,12 @@
+/* style.css */
+
+/* --- START: KODE UNTUK ANIMASI SCROLL HALUS --- */
+html {
+    scroll-behavior: smooth; /* Ini yang membuat animasi pergerakan scroll halus */
+}
+/* --- END: KODE UNTUK ANIMASI SCROLL HALUS --- */
+
+
 body {
     font-family: 'Poppins', Arial, sans-serif;
     line-height: 1.6;
