@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,27 +144,27 @@
             </div>
         </section>
 
-        <section id="projects" data-aos="fade-up">
+        <section id="projects">
             
-            <h2>💼 Proyek Pilihan</h2>
+            <h2 data-aos="fade-down">💼 Proyek Pilihan</h2>
             
             <div class="projects-grid"> 
                 
-                <article class="project-card" data-aos="zoom-in"> 
+                <article class="project-card" data-aos="zoom-in" data-aos-delay="100"> 
                     <h3>Halaman Landing Sederhana</h3>
                     <img src="images/contoh.jpg.png" alt="Contoh Proyek Landing Page"> 
                     <p>Implementasi Flexbox dan desain minimalis...</p>
                     <a href="demo/landing_demo.html" target="_blank" class="project-link">🚀 Lihat Demo →</a>
                 </article>
 
-               <article class="project-card" data-aos="zoom-in">
+                <article class="project-card" data-aos="zoom-in" data-aos-delay="300">
                     <h3>Kalkulator Profesional</h3>
                     <img src="https://via.placeholder.com/350x200/4a90e2/ffffff?text=Kalkulator+Profesional" alt="Kalkulator Profesional Glassmorphism">
                     <p>Kalkulator interaktif dengan desain <em>glassmorphism</em>, mode gelap otomatis, riwayat perhitungan, dan animasi halus. Dirancang untuk pengalaman pengguna modern yang elegan dan efisien.</p>
                   <a href="demo/kalkulator_demo.html" target="_blank" class="project-link">🚀 Lihat Demo →</a>
                </article>
                 
-                <article class="project-card" data-aos="zoom-in">
+                <article class="project-card" data-aos="zoom-in" data-aos-delay="500">
                     <h3>Blog Sederhana (Hanya HTML)</h3>
                     <img src="https://via.placeholder.com/350x200?text=Proyek+Blog+Semantik" alt="Contoh Proyek Blog">
                     <p>Fokus pada struktur semantik HTML5 yang rapi dan standar aksesibilitas dasar.</p>
@@ -173,33 +173,32 @@
                 
             </div> 
         </section>
-
-        <section id="contact" data-aos="fade-up">
-            <h2>✉️ Mari Terhubung</h2>
+        <section id="contact">
+            <h2 data-aos="fade-down">✉️ Mari Terhubung</h2>
             
             <div class="contact-details">
-                <p>Saya terbuka untuk kesempatan kolaborasi dan diskusi terkait pengembangan web Front-End.</p>
-                <p>Silakan hubungi saya melalui jalur resmi di bawah ini:</p>
+                <p data-aos="fade-right" data-aos-delay="200">Saya terbuka untuk kesempatan kolaborasi dan diskusi terkait pengembangan web Front-End.</p>
+                <p data-aos="fade-right" data-aos-delay="400">Silakan hubungi saya melalui jalur resmi di bawah ini:</p>
 
                 <div class="contact-links-grid">
-                    <a href="https://mail.google.com/mail/?view=cm&to=asvialdy10@gmail.com" target="_blank" class="contact-item">
+                    <a href="https://mail.google.com/mail/?view=cm&to=asvialdy10@gmail.com" target="_blank" class="contact-item" data-aos="fade-up" data-aos-delay="600">
                         <span class="label">Email Profesional</span>
                         <span class="value">asvialdy10@gmail.com</span> 
                     </a>
                     
-                    <a href="https://www.linkedin.com/in/asvialdy" target="_blank" class="contact-item">
+                    <a href="https://www.linkedin.com/in/asvialdy" target="_blank" class="contact-item" data-aos="fade-up" data-aos-delay="800">
                         <span class="label">LinkedIn</span>
                         <span class="value">Asvialdy</span>
                     </a>
                     
-                    <a href="https://github.com/MuhammadReishan" target="_blank" class="contact-item">
+                    <a href="https://github.com/MuhammadReishan" target="_blank" class="contact-item" data-aos="fade-up" data-aos-delay="1000">
                         <span class="label">Kode & Proyek</span>
                         <span class="value">GitHub</span>
                     </a>
                 </div>
             </div>
         </section>
-    </main> 
+        </main> 
 
     <footer>
         <p>&copy; 2025 Muhammad Reishan Asvialdy. Dibuat dengan kasih sayang.</p>
@@ -209,9 +208,11 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            once: true 
-        });
+      // Inisialisasi AOS dengan pengaturan default
+      AOS.init({
+        duration: 1000, // Durasi animasi 1 detik
+        once: true,    // Animasi hanya muncul sekali per halaman dimuat
+      });
     </script>
     <script src="js/script.js"></script> 
  
