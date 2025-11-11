@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kalkulator Profesional — Ultimate</title>
+
+  <!-- Font (opsional, tapi recommended) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===========================
+       Ultimate Professional Calculator
+       Glassmorphism + Auto Dark Mode + History + Clipboard + Animations
+       =========================== */
+
+    :root{
+      --bg-start: #e9f6fb;
+      --bg-end: #f7fbfd;
+      --accent: #2b99a9;
+      --accent-2: #7fd3df;
+      --muted: #6e7a82;
+      --text: #062027;
+      --card: rgba(255,255,255,0.14);
+      --card-border: rgba(255,255,255,0.24);
+      --glass-shadow: 0 14px 40px rgba(8,30,40,0.12);
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg-start: #07121a;
+        --bg-end: #0f2430;
+        --accent: #66d4e6;
+        --accent-2: #2b99a9;
+        --muted: #9fb7be;
+        --text: #ecf8fb;
+        --card: rgba(12,18,22,0.62);
+        --card-border: rgba(255,255,255,0.06);
+        --glass-shadow: 0 18px 50px rgba(0,0,0,0.6);
+      }
+    }
+
+    html,body{height:100%;margin:0}
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      background:
+        radial-gradient(ellipse at top left, rgba(122,181,197,0.08), transparent 20%),
+        radial-gradient(ellipse at bottom right, rgba(66,130,150,0.04), transparent 22%),
+        linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      color:var(--text);
+      transition: background .45s ease, color .25s ease;
+    }
+
+    /* Wrap */
+    .wrap{ width:100%; max-width:920px; display:grid; grid-template-columns: 1fr 360px; gap:28px; align-items:start; }
+    @media (max-width:920px){ .wrap{ grid-template-columns: 1fr; max-width:460px; } }
+
+    /* Calculator card */
+    .calculator{
+      border-radius:20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      background: var(--card);
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
+      box-shadow: var(--glass-shadow);
+      border:1px solid var(--card-border);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      transition: transform .28s cubic-bezier(.2,.9,.2,1);
+    }
+    .calculator:hover{ transform: translateY(-4px); }
+
+    /* Screen */
+    .screen{
+      border-radius:12px;
+      padding:14px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      border: 1px solid rgba(255,255,255,0.04);
+      min-height:110px;
+      position:relative;
+      overflow:hidden;
+    }
+    .expr{
+      font-size:13px;
+      color:var(--muted);
+      text-align:right;
+      min-height:18px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .display{
+      font-weight:700;
+      font-size:42px;
+      text-align:right;
+      color:var(--text);
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:12px;
+    }
+    .display .unit{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    /* Copy toast */
+    .toast{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:8px;
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      padding:6px 12px;
+      border-radius:10px;
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .toast.show{ opacity:1; transform:translateX(-50%) translateY(-6px); pointer-events:auto; }
+
+    /* Keys */
+    .keys{
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap:12px;
+    }
+    button.btn{
+      border-radius:12px;
+      padding:14px;
+      border:none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.86));
+      box-shadow:0 8px 22px rgba(10,30,40,0.06);
+      font-weight:700;
+      font-size:18px;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .18s ease;
+      color:var(--text);
+      user-select:none;
+    }
+    body.dark-mode button.btn{ background: rgba(255,255,255,0.06); color:var(--text); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+    button.btn:active{ transform: translateY(3px) scale(.997); }
+    button.btn:hover{ box-shadow: 0 12px 26px rgba(10,30,40,0.08); }
+
+    .btn.soft{
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      color:var(--muted);
+      font-size:15px;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .btn.op{
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      color:#fff;
+      font-size:20px;
+      box-shadow: 0 10px 26px rgba(43,153,169,0.18);
+    }
+    .btn.equals{
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color:#fff;
+      font-size:20px;
+      box-shadow: 0 12px 28px rgba(43,153,169,0.22);
+    }
+    .btn.wide{ grid-column: span 2; }
+
+    /* right column (history + tips) */
+    .panel{
+      border-radius:16px;
+      background:var(--card);
+      padding:16px;
+      box-shadow: var(--glass-shadow);
+      border:1px solid var(--card-border);
+      min-height:200px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .panel h3{ margin:0; font-size:14px; color:var(--muted); font-weight:700; letter-spacing:0.4px; }
+    .history-list{ display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+    .hist-item{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:8px 10px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      cursor:pointer; transition: transform .12s ease, box-shadow .12s ease;
+      font-size:14px; color:var(--muted);
+    }
+    .hist-item:hover{ transform: translateY(-3px); box-shadow:0 10px 22px rgba(10,30,40,0.06); }
+    .hist-item .expr{ font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1; margin-right:10px; }
+    .hist-item .value{ font-weight:700; color:var(--text); margin-left:8px; white-space:nowrap; }
+
+    .hint{ font-size:13px; color:var(--muted); }
+
+    /* footer area inside calculator */
+    .footer{
+      display:flex; justify-content:space-between; align-items:center; gap:10px; color:var(--muted);
+      font-size:13px;
+    }
+    .tiny{ background:transparent; border:1px solid rgba(255,255,255,0.08); padding:6px 8px; border-radius:8px; cursor:pointer; color:var(--muted); font-weight:700; }
+
+    /* small */
+    kbd{ background: rgba(2,18,26,0.06); padding:4px 6px; border-radius:6px; font-weight:700; }
+
+    /* focus visible */
+    button.btn:focus{ outline: 3px solid rgba(127,199,217,0.18); outline-offset:3px; }
+
+    /* mobile adjustments */
+    @media (max-width:920px){
+      .wrap{ grid-template-columns: 1fr; }
+      .panel{ order: -1; }
+      .display{ font-size:34px; }
+      .screen{ min-height:90px; }
+    }
+
+    /* small animation for result pop */
+    .pop {
+      animation: pop .36s cubic-bezier(.2,.9,.3,1);
+    }
+    @keyframes pop {
+      0% { transform: scale(.98); opacity:0; }
+      60% { transform: scale(1.02); opacity:1; }
+      100% { transform: scale(1); opacity:1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Calculator -->
+    <div class="calculator" role="application" aria-labelledby="calc-title">
+      <h1 id="calc-title" class="visually-hidden">Kalkulator Profesional</h1>
+
+      <div class="screen" aria-live="polite">
+        <div class="expr" id="expr"> </div>
+        <div class="display" id="display" title="Klik untuk salin hasil">0 <span class="unit" id="unit"></span></div>
+        <div class="toast" id="toast">Disalin!</div>
+      </div>
+
+      <div class="keys" role="group" aria-label="Tombol kalkulator">
+        <button class="btn soft" data-action="ac" aria-label="Reset semua">AC</button>
+        <button class="btn soft" data-action="delete" aria-label="Backspace">⌫</button>
+        <button class="btn soft" data-action="percent" aria-label="Persen">%</button>
+        <button class="btn op" data-action="operator" data-value="/" aria-label="Bagi">÷</button>
+
+        <button class="btn" data-value="7">7</button>
+        <button class="btn" data-value="8">8</button>
+        <button class="btn" data-value="9">9</button>
+        <button class="btn op" data-action="operator" data-value="*" aria-label="Kali">×</button>
+
+        <button class="btn" data-value="4">4</button>
+        <button class="btn" data-value="5">5</button>
+        <button class="btn" data-value="6">6</button>
+        <button class="btn op" data-action="operator" data-value="-" aria-label="Kurang">−</button>
+
+        <button class="btn" data-value="1">1</button>
+        <button class="btn" data-value="2">2</button>
+        <button class="btn" data-value="3">3</button>
+        <button class="btn op" data-action="operator" data-value="+" aria-label="Tambah">+</button>
+
+        <button class="btn wide" data-value="0">0</button>
+        <button class="btn" data-value=".">.</button>
+        <button class="btn equals" data-action="calculate" aria-label="Sama dengan">=</button>
+      </div>
+
+      <div class="footer" role="region" aria-label="Kontrol">
+        <div>
+          <button class="tiny" id="themeToggle" aria-pressed="false" title="Toggle mode">Mode Gelap</button>
+          <span class="hint" style="margin-left:10px">Tekan <kbd>Enter</kbd> untuk =</span>
+        </div>
+        <div id="memview" style="color:var(--muted)">Memori: —</div>
+      </div>
+    </div>
+
+    <!-- Right panel: history & tips -->
+    <aside class="panel" aria-label="Riwayat perhitungan dan tips">
+      <h3>Riwayat (klik untuk muat ulang)</h3>
+      <div class="history-list" id="historyList">
+        <!-- history items injected here -->
+      </div>
+
+      <div style="margin-top:8px;">
+        <h3>Tips Cepat</h3>
+        <div class="hint">Gunakan keyboard: <kbd>Enter</kbd> =, <kbd>Backspace</kbd> hapus, <kbd>Esc</kbd> bersihkan.</div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    /* Ultimate Calculator JS */
+    (function(){
+      const displayEl = document.getElementById('display');
+      const exprEl = document.getElementById('expr');
+      const keys = document.querySelector('.keys');
+      const toast = document.getElementById('toast');
+      const themeToggle = document.getElementById('themeToggle');
+      const historyList = document.getElementById('historyList');
+      const memview = document.getElementById('memview');
+
+      // internal state
+      let expression = '';           // raw expression string used for calculation (unformatted)
+      let history = [];              // array of {expr, result}
+      const HISTORY_LIMIT = 5;
+      let memory = null;
+
+      // utility: format number for display (id-ID locale)
+      const numberFormatter = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 10 });
+
+      function formatNumberForDisplay(num) {
+        if (num === null || num === undefined) return '';
+        // num may be numeric or string convertible
+        const n = Number(num);
+        if (Number.isNaN(n)) return String(num);
+        // show integers without decimal point
+        if (Number.isInteger(n)) return numberFormatter.format(n);
+        // trim trailing zeros up to 10 decimals
+        const fixed = parseFloat(n.toFixed(10));
+        return numberFormatter.format(fixed);
+      }
+
+      function sanitizeForEval(str) {
+        // allow digits, whitespace, operators, parentheses, dot, percent
+        if (/[^0-9+\-*/(). %]/.test(str)) return null;
+        // disallow weird operator combos
+        if (/\*\*|\/\/|\+\+|--/.test(str)) return null;
+        return str.replace(/÷/g, '/').replace(/×/g, '*');
+      }
+
+      function calculateExpression(expr) {
+        const clean = sanitizeForEval(expr);
+        if (!clean) throw new Error('Invalid expression');
+        // convert percentages like 50% -> (50/100)
+        const withPercent = clean.replace(/(\d+(\.\d+)?)%/g, '($1/100)');
+        // Evaluate in isolated function
+        const result = Function('"use strict"; return (' + withPercent + ')')();
+        if (!isFinite(result)) throw new Error('Not finite');
+        return result;
+      }
+
+      function updateScreen(pop=false) {
+        exprEl.textContent = expression || '';
+        // show formatted display (attempt evaluate partial expression to show current number if valid)
+        try {
+          // If ends with operator, show expression as is; else try to show last computed value or typed number
+          if (expression === '') {
+            displayEl.childNodes[0].nodeValue = '0';
+          } else if (/[+\-*/%]$/.test(expression)) {
+            displayEl.childNodes[0].nodeValue = expression;
+          } else {
+            // try compute as a whole to present result-like number (but keep expression as entry)
+            const res = calculateExpression(expression);
+            displayEl.childNodes[0].nodeValue = formatNumberForDisplay(res);
+            if (pop) {
+              displayEl.classList.add('pop');
+              setTimeout(()=>displayEl.classList.remove('pop'), 360);
+            }
+          }
+        } catch {
+          // fallback show raw expression
+          displayEl.childNodes[0].nodeValue = expression || '0';
+        }
+      }
+
+      // history render
+      function renderHistory() {
+        historyList.innerHTML = '';
+        if (history.length === 0) {
+          const el = document.createElement('div');
+          el.className = 'hint';
+          el.textContent = 'Belum ada perhitungan. Hasil akan muncul di sini.';
+          historyList.appendChild(el);
+          return;
+        }
+        history.slice().reverse().forEach(item => {
+          const node = document.createElement('div');
+          node.className = 'hist-item';
+          node.title = 'Klik untuk memuat ulang ekspresi ini';
+          node.innerHTML = '<div class="expr">' + escapeHtml(item.expr) + '</div><div class="value">' + escapeHtml(item.resultDisplay) + '</div>';
+          node.addEventListener('click', () => {
+            expression = item.expr;
+            updateScreen();
+          });
+          historyList.appendChild(node);
+        });
+      }
+
+      function pushHistory(expr, result) {
+        if (!expr) return;
+        const item = { expr: expr, result, resultDisplay: formatNumberForDisplay(result) };
+        history.push(item);
+        if (history.length > HISTORY_LIMIT) history.shift();
+        renderHistory();
+      }
+
+      // escape basic HTML for history safe display
+      function escapeHtml(s) {
+        return String(s).replace(/&/g, '&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      // show small toast
+      function showToast(msg='Disalin!') {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._t);
+        toast._t = setTimeout(()=> toast.classList.remove('show'), 1300);
+      }
+
+      // button handling
+      keys.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        const value = btn.dataset.value;
+
+        if (action === 'ac') {
+          expression = '';
+          memory = null;
+          memview.textContent = 'Memori: —';
+          updateScreen();
+          return;
+        }
+        if (action === 'delete') {
+          expression = expression.slice(0, -1);
+          updateScreen();
+          return;
+        }
+        if (action === 'percent') {
+          // append percent only if last char is digit
+          if (/\d$/.test(expression)) {
+            expression += '%';
+            updateScreen();
+          }
+          return;
+        }
+        if (action === 'operator') {
+          if (!expression) return;
+          if (/[+\-*/.%]$/.test(expression)) return;
+          expression += value;
+          updateScreen();
+          return;
+        }
+        if (action === 'calculate') {
+          try {
+            const res = calculateExpression(expression || '0');
+            // format result
+            const final = Number.isInteger(res) ? res : parseFloat(res.toFixed(10));
+            // push history
+            pushHistory(expression || '0', final);
+            // show result and set expression to result for chaining
+            expression = String(final);
+            updateScreen(true);
+          } catch (err) {
+            displayEl.childNodes[0].nodeValue = 'Error';
+            setTimeout(()=> {
+              expression = '';
+              updateScreen();
+            }, 900);
+          }
+          return;
+        }
+        // default: numbers and dot
+        if (value !== undefined) {
+          // prevent multiple leading zeros
+          if (value === '0' && expression === '0') return;
+          // prevent multiple dots in the current number block
+          if (value === '.' && /\.[0-9]*$/.test(expression)) return;
+          expression += value;
+          updateScreen();
+        }
+      });
+
+      // keyboard support
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.querySelector('[data-action="calculate"]').click();
+          return;
+        }
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+          document.querySelector('[data-action="delete"]').click();
+          return;
+        }
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          document.querySelector('[data-action="ac"]').click();
+          return;
+        }
+        if (/^[0-9.+\-*/()%]$/.test(e.key)) {
+          e.preventDefault();
+          // try matching numeric buttons first
+          const btnMatch = Array.from(document.querySelectorAll('button[data-value]')).find(b => b.dataset.value === e.key);
+          if (btnMatch) { btnMatch.click(); return; }
+          // else operators
+          if (['/','*','+','-'].includes(e.key)) {
+            const opBtn = document.querySelector('[data-action="operator"][data-value="'+e.key+'"]');
+            if (opBtn) opBtn.click();
+          }
+        }
+      });
+
+      // click display to copy result to clipboard
+      displayEl.addEventListener('click', async () => {
+        // try to copy currently shown display numeric value (unformatted)
+        const shown = displayEl.childNodes[0].nodeValue;
+        if (!shown) return;
+        try {
+          // Try copy raw expression result if expression is numeric or evaluate current
+          let toCopy = shown;
+          // If the shown is formatted number, try to copy unformatted numeric value
+          // Remove non-digit except decimal and minus
+          const numeric = shown.replace(/[^\d\-,.]/g, '').replace(',', '.');
+          if (numeric !== '') toCopy = numeric;
+          await navigator.clipboard.writeText(String(toCopy));
+          showToast('Hasil disalin');
+        } catch {
+          showToast('Gagal menyalin');
+        }
+      });
+
+      // theme toggle (manual) and auto-detect
+      themeToggle.addEventListener('click', () => {
+        const isPressed = themeToggle.getAttribute('aria-pressed') === 'true';
+        themeToggle.setAttribute('aria-pressed', String(!isPressed));
+        if (isPressed) {
+          document.body.classList.remove('dark-mode');
+          themeToggle.textContent = 'Mode Gelap';
+        } else {
+          document.body.classList.add('dark-mode');
+          themeToggle.textContent = 'Mode Terang';
+        }
+      });
+
+      (function initTheme() {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+          document.body.classList.add('dark-mode');
+          themeToggle.setAttribute('aria-pressed', 'true');
+          themeToggle.textContent = 'Mode Terang';
+        } else {
+          themeToggle.setAttribute('aria-pressed', 'false');
+          themeToggle.textContent = 'Mode Gelap';
+        }
+      })();
+
+      // init
+      updateScreen();
+      renderHistory();
+
+      // expose a minimal API for debugging (optional)
+      window.__calc = {
+        getExpression: () => expression,
+        getHistory: () => history.slice(),
+        clearHistory: () => { history = []; renderHistory(); }
+      };
+    })();
+  </script>
+</body>
+</html>
